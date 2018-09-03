@@ -29,20 +29,24 @@ type (
 
 	// Build information
 	Build struct {
-		Tag      string
-		Event    string
-		Number   int
-		Commit   string
-		RefSpec  string
-		Branch   string
-		Author   string
-		Avatar   string
-		Message  string
-		Email    string
-		Status   string
-		Link     string
-		Started  float64
-		Finished float64
+		Tag            string
+		Event          string
+		Number         int
+		Commit         string
+		RefSpec        string
+		PrevRefSpec    string
+		Branch         string
+		Author         string
+		Avatar         string
+		Message        string
+		Email          string
+		Status         string
+		Link           string
+		Started        float64
+		Finished       float64
+		CommitLink     string
+		PrevCommitLink string
+		PreviewURL     string
 	}
 
 	// Config for the plugin.
@@ -69,8 +73,9 @@ type (
 
 	// EmbedFieldObject for Embed Field Structure
 	EmbedFieldObject struct {
-		Name  string `json:"name"`
-		Value string `json:"value"`
+		Name   string `json:"name"`
+		Value  string `json:"value"`
+		Inline bool   `json:"inline"`
 	}
 
 	// EmbedObject is for Embed Structure
@@ -112,7 +117,7 @@ func (p *Plugin) Exec() error {
 	}
 
 	if p.Config.Drone && len(p.Config.Message) == 0 {
-		object := p.DroneTemplate()
+		object := p.PerxTemplate()
 		p.Payload.Embeds = []EmbedObject{object}
 		err := p.Send()
 		if err != nil {

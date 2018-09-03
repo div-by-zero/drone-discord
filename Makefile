@@ -3,7 +3,7 @@ EXECUTABLE := drone-discord
 GOFMT ?= gofmt "-s"
 
 # for dockerhub
-DEPLOY_ACCOUNT := appleboy
+DEPLOY_ACCOUNT := perxteam
 DEPLOY_IMAGE := $(EXECUTABLE)
 
 TARGETS ?= linux darwin windows
