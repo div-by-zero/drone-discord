@@ -116,13 +116,14 @@ func (p *Plugin) Exec() error {
 		return errors.New("missing discord config")
 	}
 
-	if p.Config.Drone && len(p.Config.Message) == 0 {
+	if p.Config.Drone {
 		object := p.PerxTemplate()
 		p.Payload.Embeds = []EmbedObject{object}
 		err := p.Send()
 		if err != nil {
 			return err
 		}
+		return nil
 	}
 
 	if len(p.Config.Message) > 0 {
